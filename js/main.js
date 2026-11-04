@@ -75,6 +75,7 @@
   var hero = doc.querySelector('.hero');
   var lens = doc.querySelector('.lens');
   var contact = doc.querySelector('.contact__main .btn');
+  var heroCta = doc.querySelector('.hero__cta .btn');
   var dock = doc.querySelector('.dock');
   var path = doc.getElementById('path');
   var items = path ? path.querySelectorAll('li') : [];
@@ -87,7 +88,7 @@
     if (top) top.classList.toggle('is-stuck', y > 8);
     /* atalho de WhatsApp (celular): aparece quando o CTA do hero saiu da tela e some no contato */
     if (dock && hero && contact) {
-      var showDock = !wide.matches && hero.getBoundingClientRect().bottom < vh * 0.3 && contact.getBoundingClientRect().top > vh * 0.94;
+      var showDock = !wide.matches && (heroCta || hero).getBoundingClientRect().bottom < 0 && contact.getBoundingClientRect().top > vh * 0.94;
       dock.classList.toggle('on', showDock);
     }
     if (reduce) return;
@@ -121,6 +122,33 @@
   window.addEventListener('scroll', req, { passive: true });
   window.addEventListener('resize', req);
   frame();
+
+  /* ---- Trilho de procedimentos (celular): barra dourada mostra a parte já vista ---- */
+  var rail = doc.getElementById('rail');
+  var railUi = doc.querySelector('.rail__ui');
+  /* desktop: grade sem rolagem — o trilho deixa de ser parada de Tab */
+  var grid = window.matchMedia('(min-width: 1020px)');
+  function railMode() {
+    if (!rail) return;
+    if (grid.matches) { rail.removeAttribute('tabindex'); rail.setAttribute('aria-label', 'Procedimentos'); }
+    else { rail.setAttribute('tabindex', '0'); rail.setAttribute('aria-label', 'Procedimentos (deslize para ver os quatro)'); }
+  }
+  railMode();
+  if (grid.addEventListener) grid.addEventListener('change', railMode);
+  if (rail && railUi) {
+    var railTick = false;
+    var railP = function () {
+      railTick = false;
+      var max = rail.scrollWidth - rail.clientWidth;
+      var vis = rail.scrollWidth ? rail.clientWidth / rail.scrollWidth : 1;
+      var p = max > 0 ? clamp(rail.scrollLeft / max, 0, 1) : 1;
+      railUi.style.setProperty('--rp', (vis + (1 - vis) * p).toFixed(3));
+    };
+    var railReq = function () { if (!railTick) { railTick = true; requestAnimationFrame(railP); } };
+    rail.addEventListener('scroll', railReq, { passive: true });
+    window.addEventListener('resize', railReq);
+    railP();
+  }
 
   /* ---- Retrato: deslocamento de ponteiro suave (apenas ponteiro fino, desktop; complementar) ---- */
   var img = doc.querySelector('.hero__img');
