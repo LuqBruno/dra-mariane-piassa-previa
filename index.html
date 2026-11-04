@@ -23,7 +23,7 @@
 <!-- Faixa de prévia + marca de autoria de Bruno Luque (POLITICA-MARCA-DAGUA.md) -->
 <div class="ribbon" role="note">
   <img class="ribbon__mark" src="assets/brand/logo-bruno-luque.svg" alt="" width="14" height="19" aria-hidden="true">
-  <p><strong>Prévia de demonstração</strong> · não é o site oficial da profissional · criada por Bruno Luque</p>
+  <p><strong>Prévia de demonstração</strong><span class="r-long"> · não é o site oficial da profissional · criada por Bruno Luque</span><span class="r-short"> · não oficial · por Bruno Luque</span></p>
 </div>
 
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -84,36 +84,39 @@
         </div>
       </div>
     </div>
-    <p class="hero__vert" aria-hidden="true">Dra. Mariane Piassa · Cirurgiã-Dentista · Tubarão/SC</p>
   </section>
 
   <!-- 2 · Faixa de autoridade (dados autodeclarados no perfil público) -->
   <section class="strip" aria-label="Credenciais informadas no perfil público">
     <div class="strip__in wrap">
-      <dl class="stats">
-        <div class="stat"><dt>Registro profissional</dt><dd><span class="stat__small">CRO/SC</span> 25626</dd></div>
-        <div class="stat"><dt>Formação informada</dt><dd>Mestre e Especialista</dd></div>
-        <div class="stat"><dt>Experiência</dt><dd>+<span data-count="13">13</span> <span class="stat__small">anos</span></dd></div>
-      </dl>
-      <p class="strip__note">Dados do perfil público da profissional; validação final e biografia completa pendentes.</p>
+      <div class="strip__card">
+        <dl class="stats">
+          <div class="stat"><dt>Registro profissional</dt><dd><span class="stat__small">CRO/SC</span> 25626</dd></div>
+          <div class="stat"><dt>Formação informada</dt><dd>Mestre e Especialista</dd></div>
+          <div class="stat"><dt>Experiência</dt><dd>+<span data-count="13">13</span> <span class="stat__small">anos</span></dd></div>
+        </dl>
+        <p class="strip__note">Dados do perfil público da profissional; validação final e biografia completa pendentes.</p>
+      </div>
     </div>
   </section>
 
   <!-- 3 · Quem atende: o olhar no espelho se abre com a rolagem (íris) -->
-  <section class="lens" id="quem" aria-labelledby="h-quem">
+  <section class="lens pad" id="quem" aria-labelledby="h-quem">
+   <div class="lens__panel panel">
     <div class="lens__media">
       <img
         src="assets/img/espelho-1600.webp"
         srcset="assets/img/espelho-900.webp 900w, assets/img/espelho-1600.webp 1600w, assets/img/espelho-2200.webp 2200w"
-        sizes="100vw"
+        sizes="(min-width: 900px) 92vw, 100vw"
         width="2200" height="2933" alt="Dra. Mariane Piassa vista no reflexo de um espelho de mão com moldura de madeira"
         loading="lazy" decoding="async">
     </div>
     <div class="lens__shade" aria-hidden="true"></div>
-    <div class="lens__in wrap">
+    <div class="lens__in">
       <p class="kicker kicker--light">Quem atende</p>
       <h2 id="h-quem" class="lens__t lm"><span class="lm__in">Sou Mariane Piassa, <span class="nb">cirurgiã-dentista</span> em Tubarão.</span></h2>
     </div>
+   </div>
   </section>
   <section class="about wrap" aria-label="Apresentação">
     <p class="about__p reveal">Este é um espaço para você conhecer minha atuação e entrar em contato para conversar sobre uma consulta. Atendo em harmonização orofacial e prótese dentária, com atenção ao que cada pessoa procura.</p>
@@ -122,7 +125,6 @@
 
   <!-- 4 · Áreas de atuação -->
   <section class="areas wrap" id="atuacao" aria-labelledby="h-atuacao">
-    <span class="areas__arch" aria-hidden="true"></span>
     <div class="areas__head">
       <p class="kicker">Áreas de atuação</p>
       <h2 id="h-atuacao" class="h2 lm"><span class="lm__in">Duas frentes, um mesmo olhar para a pessoa.</span></h2>
@@ -149,8 +151,9 @@
   </section>
 
   <!-- 5 · Consulta individualizada -->
-  <section class="consult" id="consulta" aria-labelledby="h-consulta">
-    <div class="consult__in wrap">
+  <section class="consult pad" id="consulta" aria-labelledby="h-consulta">
+   <div class="consult__panel panel">
+    <div class="consult__in">
       <div class="consult__head">
         <p class="kicker kicker--light">Consulta individualizada</p>
         <h2 id="h-consulta" class="quote lm"><span class="lm__in">Cada pessoa chega com uma história e uma expectativa.</span></h2>
@@ -162,6 +165,7 @@
         <li><span class="path__n">03</span><div><h3>Combinar o próximo passo</h3><p>Horários e funcionamento da consulta são confirmados no contato.</p></div></li>
       </ol>
     </div>
+   </div>
   </section>
 
   <!-- 6 · Contato e localização -->
@@ -204,6 +208,11 @@
     </a>
   </div>
 </footer>
+
+<!-- Atalho fixo no celular: aparece depois do hero e some na seção de contato (ver js/main.js) -->
+<a class="dock btn btn--primary" href="https://wa.me/5548988217613?text=Ol%C3%A1%2C%20Dra.%20Mariane!%20Conheci%20sua%20apresenta%C3%A7%C3%A3o%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20para%20agendar%20uma%20consulta." target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+  <span class="ico ico--chat" aria-hidden="true"></span> Solicitar agendamento
+</a>
 
 <script src="js/main.js" defer></script>
 </body>

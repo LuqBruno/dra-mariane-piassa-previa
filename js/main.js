@@ -19,6 +19,7 @@
     btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
     nav.classList.toggle('is-open', open);
     if (top) top.classList.toggle('menu-open', open);
+    doc.body.classList.toggle('menu-open', open);
     if (!open && returnFocus) btn.focus();
   }
   if (btn && nav) {
@@ -35,6 +36,10 @@
     });
     wide.addEventListener('change', function (m) { if (m.matches) setMenu(false); });
   }
+
+  /* Navegação por teclado: o atalho fixo sai da frente do foco; volta ao tocar/clicar */
+  doc.addEventListener('keydown', function (e) { if (e.key === 'Tab') doc.body.classList.add('kb'); });
+  doc.addEventListener('pointerdown', function () { doc.body.classList.remove('kb'); });
 
   /* ---- Revelação única de títulos e blocos ao entrar na tela ---- */
   var targets = doc.querySelectorAll('.lm, .reveal');
@@ -69,7 +74,8 @@
   /* ---- Elementos ligados à rolagem (um único rAF) ---- */
   var hero = doc.querySelector('.hero');
   var lens = doc.querySelector('.lens');
-  var arch = doc.querySelector('.areas__arch');
+  var contact = doc.querySelector('.contact__main .btn');
+  var dock = doc.querySelector('.dock');
   var path = doc.getElementById('path');
   var items = path ? path.querySelectorAll('li') : [];
   var bar = doc.querySelector('.progress');
@@ -79,6 +85,11 @@
     ticking = false;
     var y = window.scrollY, vh = window.innerHeight;
     if (top) top.classList.toggle('is-stuck', y > 8);
+    /* atalho de WhatsApp (celular): aparece quando o CTA do hero saiu da tela e some no contato */
+    if (dock && hero && contact) {
+      var showDock = !wide.matches && hero.getBoundingClientRect().bottom < vh * 0.3 && contact.getBoundingClientRect().top > vh * 0.94;
+      dock.classList.toggle('on', showDock);
+    }
     if (reduce) return;
 
     var max = doc.documentElement.scrollHeight - vh;
@@ -93,10 +104,6 @@
       lens.style.setProperty('--rx', (26 + 84 * p).toFixed(1) + '%');
       lens.style.setProperty('--ry', (32 + 88 * p).toFixed(1) + '%');
       lens.style.setProperty('--ls', (1.2 - 0.2 * p).toFixed(4));
-    }
-    if (arch && wide.matches) {
-      var ar = arch.parentElement.getBoundingClientRect();
-      arch.style.setProperty('--ay', ((vh * 0.5 - ar.top) * 0.08).toFixed(1) + 'px');
     }
     if (path && wide.matches) {
       var pr = path.getBoundingClientRect();
